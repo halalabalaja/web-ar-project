@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web AR Experience</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.7.6/aframe/build/aframe-ar.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <a-scene embedded arjs>
+        <!-- AR Marker -->
+        <a-marker preset="custom" type="pattern" url="path/to/marker.patt">
+            <a-entity
+                gltf-model="url(assets/mengpo-ar.glb)"
+                scale="0.5 0.5 0.5"
+                position="0 0 0">
+            </a-entity>
+        </a-marker>
+        <a-entity camera></a-entity>
+    </a-scene>
+
+    <!-- Buttons -->
+    <div id="buttons">
+        <img src="assets/button-job.png" id="btn-job" class="btn">
+        <img src="assets/button-background.png" id="btn-background" class="btn">
+        <img src="assets/button-interesting-story.png" id="btn-story" class="btn">
+    </div>
+
+    <!-- Popup Images -->
+    <div id="popup">
+        <img src="assets/mengpo-page-05.png" id="popup-job" class="popup-img">
+        <img src="assets/mengpo-page-06.png" id="popup-background" class="popup-img">
+        <img src="assets/mengpo-page-04.png" id="popup-story" class="popup-img">
+    </div>
+
+    <script>
+        const buttons = document.getElementById('buttons');
+        const popup = document.getElementById('popup');
+        const popupImages = document.querySelectorAll('.popup-img');
+
+        function showPopup(popupId) {
+            popupImages.forEach(img => img.style.display = 'none');
+            document.getElementById(popupId).style.display = 'block';
+            buttons.style.display = 'none';
+        }
+
+        function hidePopup() {
+            popupImages.forEach(img => img.style.display = 'none');
+            buttons.style.display = 'flex';
+        }
+
+        document.getElementById('btn-job').addEventListener('click', () => {
+            showPopup('popup-job');
+        });
+
+        document.getElementById('btn-background').addEventListener('click', () => {
+            showPopup('popup-background');
+        });
+
+        document.getElementById('btn-story').addEventListener('click', () => {
+            showPopup('popup-story');
+        });
+
+        popup.addEventListener('click', hidePopup);
+    </script>
+</body>
+</html>
